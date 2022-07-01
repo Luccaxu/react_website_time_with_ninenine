@@ -1,0 +1,322 @@
+@use "sass:math";
+
+$screen-sm-min: 640px;
+$screen-md-min: 768px;
+$screen-lg-min: 1024px;
+$screen-xl-min: 1280px;
+
+@mixin sm {
+    @media (min-width: #{$screen-sm-min}) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media (min-width: #{$screen-md-min}) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media (min-width: #{$screen-lg-min}) {
+        @content;
+    }
+}
+
+@mixin xl {
+    @media (min-width: #{$screen-xl-min}) {
+        @content;
+    }
+}
+
+$header-font:'Ubuntu';
+$month-name-font:'Ubuntu';
+$memo-font:'Ubuntu';
+$header-weight:700;
+$intro-weight:300;
+$memo-weight:400;
+$header-color:#ffd500;
+$intro-color:#c5c5c5;
+$month-name-color:#ffd500;
+$memo-color:#958f28;
+
+$month-num: 12;
+$month-name-container-radius: 600px;
+$name-angle: calc(360/$month-num);
+$start:-90;
+
+$num-elements: 11;
+$angle : calc(360/$num-elements);
+$rot : -90;
+$circle-radius: 200px;
+$circle-img-width: auto;
+$circle-img-height: 200px;
+
+$month-title-font:'Ubuntu';
+$month-title-weight:500;
+$month-title-size:1.8em;
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 25px 25px 25px 25px;
+    max-height: 80px;
+}
+
+.header-title {
+    font-family: $header-font, monospace;
+    font-weight: $header-weight;
+    font-size: 2.2em;
+}
+
+.header-typewriter {
+    font-family: $header-font, monospace;
+    font-weight: 400;
+    font-size: 0.7em;
+    color: $header-color;
+    background-color: #000000;
+}
+
+.header-intro {
+    font-family: $header-font, monospace;
+    font-style: italic;
+    font-weight: $intro-weight;
+    font-size: 1em;
+    color:$intro-color;
+    text-align: right;
+}
+
+.nine-photo {
+    z-index: 0;
+    position: absolute;
+    width: 160px;
+    height: auto;
+    right: 0.2%;
+    bottom: 32%;
+}
+
+.header-memo-container {
+    z-index: 10;
+    position: absolute;
+    display: inline-block;
+    flex-direction: column;
+    width: 200px;
+    height: 200px;
+    background-color: #ffea63;
+    box-shadow: #fcf0033b 0px 8px 24px;
+    border-radius: 2%;
+    right: 1%;
+    bottom: 1%;
+    transform: rotate(5deg);
+    transition: transform .2s;
+}
+
+.header-memo {
+    margin: 20px 20px auto 20px;
+    text-align: start;
+    word-wrap: break-word;
+    font-family: $memo-font, monospace;
+    font-weight: $intro-weight;
+    color:$memo-color;
+    font-size: 0.5em;
+    line-height: 120%;
+}
+
+.header-memo-container:hover {
+    transform: scale(1.3);
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👩‍❤️‍💋‍👩</text></svg>")
+    16 0,
+    auto;
+}
+
+.gallery {
+    display: flex;
+    position: relative;
+    margin: 10px 25px auto 25px;
+}
+
+.month-name-container {
+    z-index: 20;
+    margin: 0 auto;
+    width: $month-name-container-radius;
+    height: $month-name-container-radius;
+    border-radius: 50%;
+    align-items: center;
+}
+
+.month-name, .month-name-empty {
+    z-index: 50;
+    background: transparent;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent;
+    position: absolute;
+    text-align: center;
+    top:50%;
+    left: 50%;
+    font-family: $month-name-font, monospace;
+    font-size: 1.5em;
+    font-style: italic;
+    font-weight: 700;
+}
+
+.month-name-empty {
+    color: #c5c5c5;
+    background-color: #f4f4f4;
+}
+
+@for $i from 1 through $month-num {
+    .month-name:nth-child(#{$i}), .month-name-empty:nth-child(#{$i}) {
+        transform: rotate($start * 1deg) translate(calc($month-name-container-radius/2)) rotate($start * -1deg);
+    }
+    $start: $start + $name-angle;
+}
+
+.month-name:hover {
+    font-size: 1.7em;
+    color: rgb(255, 221, 0);
+    background-color: black;
+    cursor: pointer;
+}
+
+.loading-heart {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 60%;
+    border-radius: 50%;
+}
+
+.circle-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: $circle-radius;
+    height: $circle-radius;
+    border-radius: 50%;
+    transform: translate(-50%, -80%);
+}
+
+.circle-imgs {
+    margin: 0 auto;
+}
+
+.circle-img {
+    position: absolute;
+    transform: rotate(0deg) translate(calc($circle-radius/2),calc($circle-radius/2));
+    width: $circle-img-width;
+    height: $circle-img-height;
+    box-shadow: rgba(190, 190, 190, 0.06) 0px 4px 4px;
+}
+
+@for $i from 1 through $num-elements {
+    .circle-imgs:nth-child(#{$i}) {
+        z-index: random(10);
+        transform: 
+        translate(random(200)-100 +px, random(150)-100 +px)
+        rotate(random(35)-10 * 1deg);
+    }
+}
+
+// @for $i from 1 through $num-elements {
+//     .circle-imgs:nth-child(#{$i}) {
+//         transform: 
+//         translate(random(150)-100 +px, random(150)-100 +px)
+//         rotate(random(30)-15 * 1deg);
+//     }
+// }
+
+// @for $i from 1 through $num-elements {
+//     .circle-imgs:nth-child(#{$i}) {
+//         transform: rotate($rot * 1deg) translate($circle-radius/2)  rotate($rot * -1deg);
+//     }
+//     $rot: $rot + $angle;
+// }
+
+.child-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px 25px 0px 25px;
+}
+
+.back-arrow {
+    width: 30px;
+    height: auto;
+    margin-left: 5px;
+}
+
+.back-arrow:hover {
+    background-color: #ffdd00;
+    margin-left: 0px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.month-title {
+    font-family:$month-title-font, monospace;
+    font-size: $month-title-size;
+    font-weight: $month-title-weight;
+    color: #ffdd00;
+    background-color: black;
+}
+
+.monthly-imgs {
+    margin:25px 60px 25px 60px;
+    display: grid;
+    gap:10px;
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    grid-auto-rows: auto;
+}
+
+.monthImgsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+}
+
+.monthImgsNames {
+    text-align:center;
+    font-family:$month-title-font, monospace;
+    font-size: 0.7em;
+    font-weight: 500;
+    font-style: italic;
+    color: #000000;
+}
+
+.daily-img {
+    max-width: 100%;
+    height: auto;
+    transition: transform .2s;
+}
+
+.blurred-daily-img {
+    max-width: 100%;
+    height: auto;
+    filter:blur(6px);
+}
+
+.note-text {
+    display: inline-block;
+    position:absolute;
+    width: 120px;
+    height: auto;
+    text-align:center;
+    margin-top: 10em;
+    font-family:$month-title-font, monospace;
+    font-size: 0.8em; 
+    font-weight: 300;
+    font-style: italic;
+    color:#ffd500;
+    background-color: #000000;
+}
+
+.daily-img:hover {
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+    border-radius: 3%;
+    transform: scale(1.1);
+    cursor: pointer;
+}
