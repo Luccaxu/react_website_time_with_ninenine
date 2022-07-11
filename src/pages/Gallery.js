@@ -116,6 +116,7 @@ function Gallery({ storageURL }) {
     }
 
     return (
+        <div>
             <div className='gallery'>
                 <div className='month-name-container'>
                     {monthName}
@@ -123,14 +124,14 @@ function Gallery({ storageURL }) {
                 <div className='circle-container'>
                     {ImgsInCircle}
                 </div>
-                    <img className='nine-photo' src={ninePhoto} alt='99 said' />
-                    <div className='header-memo-container'>
-                        <p className='header-memo'>Actually most of these bad words on 99 are lies that kaidi deliberately pick to discredit 99 while every day 99 does many good stuff that kaidi deliberately ignoreᕙ(⇀‸↼‶)ᕗ</p>
-                        <p className='header-memo'>Actually this website is established with 99's large help (●´⌓`●)</p>
-                    </div>
-                
                 
             </div>
+            <img className='nine-photo' src={ninePhoto} alt='99 said' />
+            <div className='header-memo-container'>
+                <p className='header-memo'>Actually most of these bad words on 99 are lies that kaidi deliberately pick to discredit 99 while every day 99 does many good stuff that kaidi deliberately ignoreᕙ(⇀‸↼‶)ᕗ</p>
+                <p className='header-memo'>Actually this website is established with 99's large help (●´⌓`●)</p>
+            </div>
+        </div>
     );
 }
 
