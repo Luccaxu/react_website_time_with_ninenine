@@ -218,8 +218,15 @@ $month-title-size:1.8em;
 .loading-heart {
     display: block;
     position: relative;
-    left: 50%;
-    top: 60%;
+    margin-top: 50%;
+    margin-left: 50%;
+    border-radius: 50%;
+}
+
+.loading-heart-childpage {
+    display: block;
+    position: relative;
+    margin: auto;
     border-radius: 50%;
 }
 

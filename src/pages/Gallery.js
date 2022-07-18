@@ -1,12 +1,11 @@
 //loading component from https://github.com/JoshK2/react-spinners-css
-import React from 'react';
-import {useState, useEffect} from 'react';
-import {useNavigate, useParams} from "react-router-dom";
-import {Heart} from 'react-spinners-css';
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { Heart } from 'react-spinners-css';
 import Pic from './Pic';
 import ninePhoto from '../icons/99said.png';
 
-function Gallery({ storageURL }) {
+function Gallery({ allUrlsArrays, monthNameArray }) {
     //----pass apis data to Pic component----//
     // const [allImgs, setAllImgs] = useState([]);
     // function loadImages() {
@@ -41,38 +40,39 @@ function Gallery({ storageURL }) {
     
 
     //const[allNames, setAllNames] = useState([]);//img's title
-    const[allUrls, setAllUrls] = useState([]);
+    
     const[buttonNumber, setButtonNumber] = useState(0);
 
-    useEffect(() => {
-        async function getImageUrlsByMonth(){
-            var url_dict = {};
-            for(let month = 0; month<12; month++ ){
-                url_dict[month] = new Array();
-            };
-            const res = await fetch(storageURL);
-            const value = await res.text();
-            var parser = new DOMParser();
-            var xmlDoc = parser.parseFromString(value, "text/xml");
-            var blobs = xmlDoc.getElementsByTagName("EnumerationResults")[0].getElementsByTagName("Blobs")[0];
-            for(var blob of blobs.children){
-                var url = blob.getElementsByTagName("Url")[0].textContent;
-                var name = blob.getElementsByTagName("Name")[0].textContent.split('.')[0];
-                var month = new Date(name).getMonth();
-                url_dict[month].push(url);
-            }
-            setAllUrls(url_dict);
-        }
-        getImageUrlsByMonth()
-    }, []);
+    // useEffect(() => {
+    //     async function getImageUrlsByMonth(){
+    //         var url_dict = {};
+    //         for(let month = 0; month<12; month++ ){
+    //             url_dict[month] = new Array();
+    //         };
+    //         const res = await fetch(storageURL);
+    //         const value = await res.text();
+    //         var parser = new DOMParser();
+    //         var xmlDoc = parser.parseFromString(value, "text/xml");
+    //         var blobs = xmlDoc.getElementsByTagName("EnumerationResults")[0].getElementsByTagName("Blobs")[0];
+    //         for(var blob of blobs.children){
+    //             var url = blob.getElementsByTagName("Url")[0].textContent;
+    //             var name = blob.getElementsByTagName("Name")[0].textContent.split('.')[0];
+    //             var month = new Date(name).getMonth();
+    //             url_dict[month].push(url);
+    //         }
+    //         setAllUrls(url_dict);
+    //     }
+    //     getImageUrlsByMonth()
+    // }, []);
     
-    const allUrlsArrays = Object.values(allUrls);
+
     //-------display all images-----------
     // const allImgsInCircle = allUrlsArrays.map((arrays)=> {
     //         return(arrays.map((array,index)=>{
     //             return(<Pic key={index} url={array} hoverTrigger={shadowModel} />)
     //         }));
     //     })
+
     const ImgsInCircle = allUrlsArrays.length>0? allUrlsArrays[buttonNumber].slice(0, 10).map(
         (value)=> {
             return(
@@ -82,9 +82,7 @@ function Gallery({ storageURL }) {
     ):<Heart color='#ffd500' className='loading-heart'/>;
 
     const navigate = useNavigate();
-    let {shortname} = useParams();
 
-    const monthNameArray = ["Jan.", "Feb.", "Mar.","Apr.", "May.", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."];
     const monthName = monthNameArray.map((name, index)=>{
         return (
             <button 
@@ -107,7 +105,7 @@ function Gallery({ storageURL }) {
  
     function navigateToMonth(shortname, arraynum) {
         let clickedUrlsArray = allUrlsArrays[arraynum];
-        navigate(`/month/${shortname}`,
+        navigate(`/${shortname}`,
             {state:{
                 monthTitle: shortname.concat('.'),
                 monthlyImgs: clickedUrlsArray
@@ -124,7 +122,6 @@ function Gallery({ storageURL }) {
                 <div className='circle-container'>
                     {ImgsInCircle}
                 </div>
-                
             </div>
             <img className='nine-photo' src={ninePhoto} alt='99 said' />
             <div className='header-memo-container'>
