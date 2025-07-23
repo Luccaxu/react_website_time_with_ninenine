@@ -4,7 +4,7 @@ import { useTypewriter, Cursor} from 'react-simple-typewriter'
 
 function Header() {
     const {text} = useTypewriter({
-        words: ['ᕙ(^▿^ᕙ)','( ◡́.◡̀)(^◡^ )','¯\_(ツ)_/¯', '⸜( ˙˘˙)⸝', '\(◡̈ )/♥︎', 'ᕕ( ᐛ )ᕗ', '≧◉◡◉≦', '(ㆆ_ㆆ)', '(¬‿¬)','ᕙ(`▿´)ᕗ', '(ɔ˘ ³(-‿-c)', '┻┻︵ヽ(`▭´)ﾉ︵┻┻'],
+        words: ['ᕙ(^▿^ᕙ)','( ◡́.◡̀)(^◡^ )','(ツ)', '⸜( ˙˘˙)⸝', '(◡̈ )♥︎', 'ᕕ( ᐛ )ᕗ', '≧◉◡◉≦', '(ㆆ_ㆆ)', '(¬‿¬)','ᕙ(`▿´)ᕗ', '(ɔ˘ ³(-‿-c)', '┻┻︵ヽ(`▭´)ﾉ︵┻┻'],
         loop: 0,
         typeSpeed: 90,
         deleteSpeed: 70,
@@ -20,9 +20,10 @@ function Header() {
                         {text}
                     </span><Cursor /> day!
                 </h1>
-                <h1 className='header-intro'>Delivering a new drawing every day about me and my girlfriend 99</h1>
+                
+                <h1 className='header-intro'>
+                Delivering a new drawing every day by me and 99.<br/>And thanks for the calendar gift from CC.</h1>
             </div>
-            
         </div>
     );
     
